@@ -143,7 +143,7 @@
       border: 1px solid #3a506b;
       cursor: pointer;
       font-weight: 500;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
     .content-box li:hover {
@@ -161,15 +161,6 @@
       border: 1px dashed #38bdf8;
       display: none;
       text-align: center;
-    }
-
-    .gf-img {
-      max-width: 280px;
-      width: 100%;
-      border-radius: 8px;
-      border: 2px solid #38bdf8;
-      margin-top: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
     @keyframes fadeIn {
@@ -194,7 +185,7 @@
     <p id="folderDesc">विवरण यहाँ दिखेगा...</p>
     
     <ul id="fileList">
-      <li onclick="showSubDetail('gf')">📄 1. GIRLFRIENDS</li>
+      <li onclick="openGfLink()">🔗 1. GIRLFRIENDS (Click to Open Link)</li>
       <li onclick="showSubDetail('addiction')">📄 2. TYPE OF ADDICTION</li>
       <li onclick="showSubDetail('character')">📄 3. CHARACTER IDENTIFICATION</li>
       <li onclick="showSubDetail('diet')">🪪 4. DIET</li>
@@ -248,29 +239,28 @@
       contentArea.scrollIntoView({ behavior: 'smooth' });
     }
 
+    // 1. GIRLFRIENDS par click hote hi link open hoga
+    function openGfLink() {
+      window.open('https://share.google/hDv4NktK5WFhoLTiz', '_blank');
+    }
+
     function showSubDetail(type) {
       const detailView = document.getElementById('detailView');
       detailView.style.display = 'block';
 
-      if (type === 'gf') {
+      if (type === 'addiction') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">1. GIRLFRIENDS DATA - ${currentMember}</h3>
-          <p style="color: #94a3b8; margin-bottom: 10px;">Photo Reference:</p>
-          <img src="60589.jpg" alt="Girlfriend Reference Photo" class="gf-img">
-        `;
-      } else if (type === 'addiction') {
-        detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">2. TYPE OF ADDICTION</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">2. TYPE OF ADDICTION - ${currentMember}</h3>
           <p style="color: #cbd5e1;">Chai, Canteen Snacks, aur Gaming/Social media checking.</p>
         `;
       } else if (type === 'character') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">3. CHARACTER IDENTIFICATION</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">3. CHARACTER IDENTIFICATION - ${currentMember}</h3>
           <p style="color: #cbd5e1;">Anushasit, mehnati aur platoon ke active member.</p>
         `;
       } else if (type === 'diet') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">4. DIET</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">4. DIET - ${currentMember}</h3>
           <p style="color: #cbd5e1;">Mess Regular Diet + High Protein aur Chana.</p>
         `;
       }
