@@ -130,16 +130,46 @@
       list-style-type: none;
     }
 
+    /* Clickable sub-items */
     .content-box li {
-      padding: 10px 14px;
+      padding: 12px 16px;
       background: #0b132b;
       border-radius: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #cbd5e1;
       display: flex;
       align-items: center;
       gap: 10px;
       border: 1px solid #3a506b;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .content-box li:hover {
+      background: #162238;
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    /* Detail View Container */
+    .detail-view {
+      margin-top: 20px;
+      padding: 20px;
+      background: #0b132b;
+      border-radius: 8px;
+      border: 1px dashed #38bdf8;
+      display: none;
+      text-align: center;
+    }
+
+    .gf-img {
+      max-width: 280px;
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid #38bdf8;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
     @keyframes fadeIn {
@@ -162,55 +192,33 @@
   <section id="contentArea" class="content-box">
     <h2 id="folderTitle">फ़ोल्डर का नाम</h2>
     <p id="folderDesc">विवरण यहाँ दिखेगा...</p>
-    <ul id="fileList"></ul>
+    
+    <ul id="fileList">
+      <li onclick="showSubDetail('gf')">📄 1. GIRLFRIENDS</li>
+      <li onclick="showSubDetail('addiction')">📄 2. TYPE OF ADDICTION</li>
+      <li onclick="showSubDetail('character')">📄 3. CHARACTER IDENTIFICATION</li>
+      <li onclick="showSubDetail('diet')">🪪 4. DIET</li>
+    </ul>
+
+    <!-- Sub detail display -->
+    <div id="detailView" class="detail-view"></div>
   </section>
 
   <script>
-    // Platoon No. 1 - All Personnel List
     const membersList = [
-      "PROBIR",
-      "SAMEER",
-      "GAUTAM",
-      "MUKESH",
-      "AMIT (D)",
-      "RANJIT",
-      "RAMBABU",
-      "SUBHAJYOTI",
-      "SRIKANTH",
-      "SAI PRAKASH",
-      "ANKIT",
-      "RANJIT",
-      "RAMBABU",
-      "SUBHAJYOTI",
-      "SRIKANTH",
-      "SAI PRAKASH",
-      "ANKIT",
-      "JAI PRAKASH",
-      "RAJENDRA",
-      "MAHESH",
-      "RITIK",
-      "AMIT KUMAR",
-      "AMIT MANI",
-      "RAKESH",
-      "SWARAJIT",
-      "ASHIK",
-      "ABDUL",
-      "SOUGATA",
-      "BISHU",
-      "GAUTAM",
-      "CHANDAN",
-      "DIPAK",
-      "PAWAN",
-      "SHIVANSHU",
-      "ARIHANT",
-      "LAKKAPPA"
+      "PROBIR", "SAMEER", "GAUTAM", "MUKESH", "AMIT (D)", "RANJIT", "RAMBABU", 
+      "SUBHAJYOTI", "SRIKANTH", "SAI PRAKASH", "ANKIT", "RANJIT", "RAMBABU", 
+      "SUBHAJYOTI", "SRIKANTH", "SAI PRAKASH", "ANKIT", "JAI PRAKASH", "RAJENDRA", 
+      "MAHESH", "RITIK", "AMIT KUMAR", "AMIT MANI", "RAKESH", "SWARAJIT", 
+      "ASHIK", "ABDUL", "SOUGATA", "BISHU", "GAUTAM", "CHANDAN", "DIPAK", 
+      "PAWAN", "SHIVANSHU", "ARIHANT", "LAKKAPPA"
     ];
 
+    let currentMember = "";
     const container = document.getElementById('folderContainer');
 
-    // Har naam ke liye serial number ke sath card generate karna
     membersList.forEach((name, index) => {
-      const serialNo = String(index + 1).padStart(2, '0'); // 01, 02, 03...
+      const serialNo = String(index + 1).padStart(2, '0');
 
       const card = document.createElement('div');
       card.className = 'folder-card';
@@ -225,25 +233,48 @@
       container.appendChild(card);
     });
 
-    // Folder par click karne par details show karne ka function
     function openFolder(slNo, name) {
+      currentMember = name;
       const contentArea = document.getElementById('contentArea');
       const folderTitle = document.getElementById('folderTitle');
       const folderDesc = document.getElementById('folderDesc');
-      const fileList = document.getElementById('fileList');
+      const detailView = document.getElementById('detailView');
 
+      detailView.style.display = 'none';
       folderTitle.innerText = `[#${slNo}] - फ़ोल्डर: ${name}`;
-      folderDesc.innerText = `Platoon No. 1 के जवान ${name} के सुरक्षित दस्तावेज़ एवं फ़ाइलें:`;
-
-      fileList.innerHTML = `
-        <li>📄 1.GIRLFRIENDS.pdf</li>
-        <li>📄 2.TYPE OF ADDICTION.pdf</li>
-        <li>📄 3.CHARACTER IDETIFICATION.docx</li>
-        <li>🪪 4.DIET.pdf</li>
-      `;
+      folderDesc.innerText = `Platoon No. 1 ke jawan ${name} ke details dekhne ke liye category chunein:`;
 
       contentArea.style.display = "block";
       contentArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showSubDetail(type) {
+      const detailView = document.getElementById('detailView');
+      detailView.style.display = 'block';
+
+      if (type === 'gf') {
+        detailView.innerHTML = `
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">1. GIRLFRIENDS DATA - ${currentMember}</h3>
+          <p style="color: #94a3b8; margin-bottom: 10px;">Photo Reference:</p>
+          <img src="60589.jpg" alt="Girlfriend Reference Photo" class="gf-img">
+        `;
+      } else if (type === 'addiction') {
+        detailView.innerHTML = `
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">2. TYPE OF ADDICTION</h3>
+          <p style="color: #cbd5e1;">Chai, Canteen Snacks, aur Gaming/Social media checking.</p>
+        `;
+      } else if (type === 'character') {
+        detailView.innerHTML = `
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">3. CHARACTER IDENTIFICATION</h3>
+          <p style="color: #cbd5e1;">Anushasit, mehnati aur platoon ke active member.</p>
+        `;
+      } else if (type === 'diet') {
+        detailView.innerHTML = `
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">4. DIET</h3>
+          <p style="color: #cbd5e1;">Mess Regular Diet + High Protein aur Chana.</p>
+        `;
+      }
+      detailView.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 
