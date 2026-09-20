@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platoon No. 1 - Portal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: #38bdf8;
+      text-transform: uppercase;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    /* Folders Container */
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 850px;
+      margin-bottom: 40px;
+    }
+
+    /* Folder Card Styling */
+    .folder-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .folder-card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+      box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.2);
+      background: #243248;
+    }
+
+    .folder-icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .folder-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #f1f5f9;
+    }
+
+    /* Content Area */
+    .content-box {
+      width: 100%;
+      max-width: 850px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 30px;
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .content-box h2 {
+      color: #38bdf8;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 8px;
+    }
+
+    .content-box ul {
+      list-style-type: none;
+      margin-top: 15px;
+    }
+
+    .content-box li {
+      padding: 10px 14px;
+      background: #0f172a;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Platoon No. 1</h1>
+    <p>निगरानी और पर्सनल रिकॉर्ड्स सिस्टम</p>
+  </header>
+
+  <!-- Clickable Folders -->
+  <main class="folder-grid">
+    <div class="folder-card" onclick="openFolder('PROBIR')">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">PROBIR</div>
+    </div>
+
+    <div class="folder-card" onclick="openFolder('SAMEER')">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">SAMEER</div>
+    </div>
+
+    <div class="folder-card" onclick="openFolder('GAUTAM')">
+      <div class="folder-icon">📁</div>
+      <div class="folder-name">GAUTAM</div>
+    </div>
+  </main>
+
+  <!-- Dynamic Content Display -->
+  <section id="contentArea" class="content-box">
+    <h2 id="folderTitle">फ़ोल्डर का नाम</h2>
+    <p id="folderDesc">विवरण यहाँ दिखेगा...</p>
+    
+    <ul id="fileList">
+      <!-- फाइल्स यहाँ dynamically आएँगी -->
+    </ul>
+  </section>
+
+  <script>
+    // हर मेंबर का डेटा
+    const platoonData = {
+      PROBIR: {
+        title: "PROBIR - रिकॉर्ड्स और असाइनमेंट्स",
+        description: "Platoon No. 1 के जवान Probir का विवरण:",
+        files: ["📄 ड्यूटी रोस्टर (Duty Roster).pdf", "📄 ट्रेनिंग प्रोग्रेस रिपोर्ट.docx", "🪪 ID & वेरिफिकेशन कार्ड.pdf"]
+      },
+      SAMEER: {
+        title: "SAMEER - रिकॉर्ड्स और असाइनमेंट्स",
+        description: "Platoon No. 1 के जवान Sameer का विवरण:",
+        files: ["📄 गश्त लॉगबुक (Patrol Log).pdf", "📄 फिजिकल टेस्ट सर्टिफिकेट.docx", "🪪 इक्विपमेंट अलॉटमेंट लिस्ट.pdf"]
+      },
+      GAUTAM: {
+        title: "GAUTAM - रिकॉर्ड्स और असाइनमेंट्स",
+        description: "Platoon No. 1 के जवान Gautam का विवरण:",
+        files: ["📄 नाइट ड्यूटी चार्ट.pdf", "📄 वेपन चेकिंग रिपोर्ट.docx", "🪪 लीव & अटेंडेंस रिकॉर्ड.pdf"]
+      }
+    };
+
+    function openFolder(name) {
+      const contentArea = document.getElementById('contentArea');
+      const folderTitle = document.getElementById('folderTitle');
+      const folderDesc = document.getElementById('folderDesc');
+      const fileList = document.getElementById('fileList');
+
+      const data = platoonData[name];
+
+      if (data) {
+        folderTitle.innerText = data.title;
+        folderDesc.innerText = data.description;
+        
+        fileList.innerHTML = "";
+        data.files.forEach(file => {
+          const li = document.createElement('li');
+          li.innerText = file;
+          fileList.appendChild(li);
+        });
+
+        contentArea.style.display = "block";
+        contentArea.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
+
+</body>
+</html>
