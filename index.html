@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Platoon No. 1 - Directory</title>
+  <title>Platoon No. 1 - Personnel Directory</title>
   <style>
     * {
       box-sizing: border-box;
@@ -43,13 +43,13 @@
       font-size: 1rem;
     }
 
-    /* Grid layout for 30 folders */
+    /* Grid layout for folders */
     .folder-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 18px;
       width: 100%;
-      max-width: 1100px;
+      max-width: 1200px;
       margin-bottom: 40px;
     }
 
@@ -93,17 +93,18 @@
     }
 
     .folder-name {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       color: #e2e8f0;
       word-break: break-word;
+      text-transform: uppercase;
     }
 
     /* Content Area */
     .content-box {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1200px;
       background: #1c2541;
       border: 1px solid #38bdf8;
       border-radius: 10px;
@@ -151,10 +152,10 @@
 
   <header>
     <h1>Platoon No. 1</h1>
-    <p>30 पर्सनल रिकॉर्ड्स और डॉक्युमेंट फ़ोल्डर्स</p>
+    <p>पर्सनल रिकॉर्ड्स और डॉक्युमेंट फ़ोल्डर्स</p>
   </header>
 
-  <!-- 30 Folders Grid (JavaScript ke jariye automatically load hoga) -->
+  <!-- Folders Grid -->
   <main class="folder-grid" id="folderContainer"></main>
 
   <!-- Selected Folder Content View -->
@@ -165,23 +166,51 @@
   </section>
 
   <script>
-    // 1 se 30 tak ki list
-    // Agar aapke paas baki bando ke naam hain toh niche 'MEMBER 4' ki jagah unke naam daal sakte hain
+    // Platoon No. 1 - All Personnel List
     const membersList = [
       "PROBIR",
       "SAMEER",
       "GAUTAM",
-      "MEMBER 04", "MEMBER 05", "MEMBER 06", "MEMBER 07", "MEMBER 08", "MEMBER 09", "MEMBER 10",
-      "MEMBER 11", "MEMBER 12", "MEMBER 13", "MEMBER 14", "MEMBER 15", "MEMBER 16", "MEMBER 17",
-      "MEMBER 18", "MEMBER 19", "MEMBER 20", "MEMBER 21", "MEMBER 22", "MEMBER 23", "MEMBER 24",
-      "MEMBER 25", "MEMBER 26", "MEMBER 27", "MEMBER 28", "MEMBER 29", "MEMBER 30"
+      "MUKESH",
+      "AMIT (D)",
+      "RANJIT",
+      "RAMBABU",
+      "SUBHAJYOTI",
+      "SRIKANTH",
+      "SAI PRAKASH",
+      "ANKIT",
+      "RANJIT",
+      "RAMBABU",
+      "SUBHAJYOTI",
+      "SRIKANTH",
+      "SAI PRAKASH",
+      "ANKIT",
+      "JAI PRAKASH",
+      "RAJENDRA",
+      "MAHESH",
+      "RITIK",
+      "AMIT KUMAR",
+      "AMIT MANI",
+      "RAKESH",
+      "SWARAJIT",
+      "ASHIK",
+      "ABDUL",
+      "SOUGATA",
+      "BISHU",
+      "GAUTAM",
+      "CHANDAN",
+      "DIPAK",
+      "PAWAN",
+      "SHIVANSHU",
+      "ARIHANT",
+      "LAKKAPPA"
     ];
 
     const container = document.getElementById('folderContainer');
 
-    // 1 se 30 tak clickable folders banaye jaa rahe hain
+    // Har naam ke liye serial number ke sath card generate karna
     membersList.forEach((name, index) => {
-      const serialNo = String(index + 1).padStart(2, '0'); // 01, 02, ... 30
+      const serialNo = String(index + 1).padStart(2, '0'); // 01, 02, 03...
 
       const card = document.createElement('div');
       card.className = 'folder-card';
@@ -196,7 +225,7 @@
       container.appendChild(card);
     });
 
-    // Folder click function
+    // Folder par click karne par details show karne ka function
     function openFolder(slNo, name) {
       const contentArea = document.getElementById('contentArea');
       const folderTitle = document.getElementById('folderTitle');
@@ -204,14 +233,13 @@
       const fileList = document.getElementById('fileList');
 
       folderTitle.innerText = `[#${slNo}] - फ़ोल्डर: ${name}`;
-      folderDesc.innerText = `Platoon No. 1 के जवान ${name} के सुरक्षित दस्तावेज़ और फ़ाइलें:`;
+      folderDesc.innerText = `Platoon No. 1 के जवान ${name} के सुरक्षित दस्तावेज़ एवं फ़ाइलें:`;
 
-      // Demo files list
       fileList.innerHTML = `
-        <li>📄 डोसियर & सर्विस बुक (Service Book).pdf</li>
-        <li>📄 ड्यूटी रोस्टर & अटेंडेंस रिकॉर्ड.pdf</li>
-        <li>📄 वेपन / इक्विपमेंट इशू कार्ड.docx</li>
-        <li>🪪 पहचान पत्र & मेडिकल फिटनेस प्रमाण-पत्र.pdf</li>
+        <li>📄 1.GIRLFRIENDS.pdf</li>
+        <li>📄 2.TYPE OF NASHA.pdf</li>
+        <li>📄 3.CHARACTER IDETIFICATION.docx</li>
+        <li>🪪 4.DIET.pdf</li>
       `;
 
       contentArea.style.display = "block";
