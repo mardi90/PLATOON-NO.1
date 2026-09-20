@@ -185,7 +185,7 @@
     <p id="folderDesc">विवरण यहाँ दिखेगा...</p>
     
     <ul id="fileList">
-      <li onclick="openGfLink()">🔗 1. GIRLFRIENDS </li>
+      <li onclick="openGfLink()">🔗 1. GIRLFRIENDS (Click to Open Link)</li>
       <li onclick="showSubDetail('addiction')">📄 2. TYPE OF ADDICTION</li>
       <li onclick="showSubDetail('character')">📄 3. CHARACTER IDENTIFICATION</li>
       <li onclick="showSubDetail('diet')">🪪 4. DIET</li>
@@ -196,36 +196,70 @@
   </section>
 
   <script>
-    const membersList = [
-      "PROBIR", "SAMEER", "GAUTAM", "MUKESH", "AMIT (D)", "RANJIT", "RAMBABU", 
-      "SUBHAJYOTI", "SRIKANTH", "SAI PRAKASH", "ANKIT", "RANJIT", "RAMBABU", 
-      "SUBHAJYOTI", "SRIKANTH", "SAI PRAKASH", "ANKIT", "JAI PRAKASH", "RAJENDRA", 
-      "MAHESH", "RITIK", "AMIT KUMAR", "AMIT MANI", "RAKESH", "SWARAJIT", 
-      "ASHIK", "ABDUL", "SOUGATA", "BISHU", "GAUTAM", "CHANDAN", "DIPAK", 
-      "PAWAN", "SHIVANSHU", "ARIHANT", "LAKKAPPA"
+    // Har jawan ke naam ke sath uska personal link
+    const membersData = [
+      { name: "PROBIR", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SAMEER", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "GAUTAM", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "MUKESH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "AMIT (D)", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RANJIT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RAMBABU", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SUBHAJYOTI", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SRIKANTH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SAI PRAKASH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "ANKIT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RANJIT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RAMBABU", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SUBHAJYOTI", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SRIKANTH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SAI PRAKASH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "ANKIT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "JAI PRAKASH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RAJENDRA", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "MAHESH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RITIK", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "AMIT KUMAR", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "AMIT MANI", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "RAKESH", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SWARAJIT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "ASHIK", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "ABDUL", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SOUGATA", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "BISHU", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "GAUTAM", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "CHANDAN", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "DIPAK", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "PAWAN", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "SHIVANSHU", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "ARIHANT", link: "https://share.google/hDv4NktK5WFhoLTiz" },
+      { name: "LAKKAPPA", link: "https://share.google/hDv4NktK5WFhoLTiz" }
     ];
 
-    let currentMember = "";
+    let currentMemberName = "";
+    let currentMemberLink = "";
     const container = document.getElementById('folderContainer');
 
-    membersList.forEach((name, index) => {
+    membersData.forEach((member, index) => {
       const serialNo = String(index + 1).padStart(2, '0');
 
       const card = document.createElement('div');
       card.className = 'folder-card';
-      card.onclick = () => openFolder(serialNo, name);
+      card.onclick = () => openFolder(serialNo, member.name, member.link);
 
       card.innerHTML = `
         <span class="serial-badge">#${serialNo}</span>
         <div class="folder-icon">📁</div>
-        <div class="folder-name">${name}</div>
+        <div class="folder-name">${member.name}</div>
       `;
 
       container.appendChild(card);
     });
 
-    function openFolder(slNo, name) {
-      currentMember = name;
+    function openFolder(slNo, name, link) {
+      currentMemberName = name;
+      currentMemberLink = link;
+
       const contentArea = document.getElementById('contentArea');
       const folderTitle = document.getElementById('folderTitle');
       const folderDesc = document.getElementById('folderDesc');
@@ -239,9 +273,13 @@
       contentArea.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 1. GIRLFRIENDS par click hote hi link open hoga
+    // Har member ke liye uska apna alag link open hoga
     function openGfLink() {
-      window.open('https://share.google/hDv4NktK5WFhoLTiz', '_blank');
+      if (currentMemberLink) {
+        window.open(currentMemberLink, '_blank');
+      } else {
+        alert("Is member ke liye koi link add nahi kiya gaya hai!");
+      }
     }
 
     function showSubDetail(type) {
@@ -250,17 +288,17 @@
 
       if (type === 'addiction') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">2. TYPE OF ADDICTION - ${currentMember}</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">2. TYPE OF ADDICTION - ${currentMemberName}</h3>
           <p style="color: #cbd5e1;">Chai, Canteen Snacks, aur Gaming/Social media checking.</p>
         `;
       } else if (type === 'character') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">3. CHARACTER IDENTIFICATION - ${currentMember}</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">3. CHARACTER IDENTIFICATION - ${currentMemberName}</h3>
           <p style="color: #cbd5e1;">Anushasit, mehnati aur platoon ke active member.</p>
         `;
       } else if (type === 'diet') {
         detailView.innerHTML = `
-          <h3 style="color: #38bdf8; margin-bottom: 8px;">4. DIET - ${currentMember}</h3>
+          <h3 style="color: #38bdf8; margin-bottom: 8px;">4. DIET - ${currentMemberName}</h3>
           <p style="color: #cbd5e1;">Mess Regular Diet + High Protein aur Chana.</p>
         `;
       }
